@@ -1,0 +1,28 @@
+services:
+  sandbox-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist sandbox files across container restarts
+      - sandbox-data:/sandboxes
+    environment:
+      # Number of concurrent execution workers
+      NUM_WORKERS: "4"
+      # Max seconds a single command can run before being killed
+      EXEC_TIMEOUT: "30"
+      # Max virtual memory per execution (MB)
+      MEM_LIMIT_MB: "256"
+      SANDBOX_DIR: /sandboxes
+    # Hard resource limits at the container level
+    mem_limit: 1g
+    cpus: "2.0"
+    # Drop all Linux capabilities except what's needed to run the app
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  sandbox-data:
