@@ -153,7 +153,7 @@ DELETE /sandbox/{sandbox_id}
 ### Docker Compose (recommended)
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/ronneldavis/llm-docker-sandbox.git
 cd llm-docker-sandbox
 docker compose up --build
 ```
